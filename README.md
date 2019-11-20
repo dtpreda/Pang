@@ -13,7 +13,7 @@ O objetivo é eliminar as bolas do ecrã. Cada bola sub-divide-se em várias qua
 
 #### UI
 
-![UI](https://github.com/fpro-feup/public/blob/master/assigns/ui.png)
+![UI](ui.jpg)
 
 ### Pacotes
 
