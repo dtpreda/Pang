@@ -1,31 +1,15 @@
-# Pang
-# Projeto \<nome\>
+# Projeto Pang
 ### FPRO/MIEIC, 2019/20
-### \<Fulano de Tal (up2019xxxxx@fe.up.pt)\>
-### \<1MIEIC0X\> 
+### David Teixeira Preda (up201904726@fe.up.pt)
+### 1MIEIC04
 
 #### Objetivo
 
-1. \<Criar um clone do clássico Sokoban em Pygame\>
-
-2. \<Em alternativa... do clássico x em Pygame\>
-
-#### Repositório de código
-
-1) Link para o repositório do GitHub: <https://github.com/fpro-feup/public>
-
-2) Adicionar o prof. da Unidade (ver lista em baixo) e o "Lord of the Game" (aka Ricardo Cruz):
-
-- https://github.com/fernandocassola
-- https://github.com/rpmcruz
-- https://github.com/jlopes60
-- https://github.com/rcamacho
+Criar um clone do jogo [Pang](https://en.wikipedia.org/wiki/Pang_(video_game)) (NES), usando também o [Bubble Trouble](https://www.miniclip.com/games/bubble-trouble/en/) como exemplo.
 
 #### Descrição
 
-\<É um jogo de puzzle em que o objetivo do jogo é empurrar caixotes para um sítio indicado. 
-Para empurrar o caixote é preciso ir ao outro lado empurrá-lo. 
-Ou seja, se ele ficar junto à parede, a pessoa precisa de reiniciar o jogo. Estamos a utilizar os níveis do XSokoban.\>
+O objetivo é eliminar as bolas do ecrã. Cada bola sub-divide-se em várias quando se dispara com ela. As bolas não podem bater no jogador.
 
 #### UI
 
@@ -58,4 +42,4 @@ Ou seja, se ele ficar junto à parede, a pessoa precisa de reiniciar o jogo. Est
    * Multi-jogador
    * diferentes tipos de tiro
 
-### \<date\>
+### 19/nov/2019
