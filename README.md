@@ -22,8 +22,9 @@ O objetivo é eliminar as bolas do ecrã. Cada bola sub-divide-se em várias qua
 #### Tarefas
 
 1. **MATRIZ para os BLOCOS**
+   1. blocos - 50x10 (done)
    1. 0 (vazio) 1 (bloco)
-   1. desenhar
+   1. desenhar (done)
 1. **JOGADOR**
    1. desenhar: coordenadas (resolução: 50x100)
    1. mover teclas
