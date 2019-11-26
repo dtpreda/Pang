@@ -25,7 +25,7 @@ O objetivo é eliminar as bolas do ecrã. Cada bola sub-divide-se em várias qua
    1. blocos - 50x10 (done)
    1. 0 (vazio) 1 (bloco)
    1. desenhar (done)
-1. **JOGADOR**
+1. **JOGADOR** DONE
    1. desenhar: coordenadas (resolução: 50x100)
    1. mover teclas
    1. impedir que bata nos blocos
@@ -40,7 +40,7 @@ O objetivo é eliminar as bolas do ecrã. Cada bola sub-divide-se em várias qua
    1. desenhar se existe_tiro
    1. em cada ciclo, altura aumenta. quando atinge o tecto, existe_tiro=False
 1. **FUTURO:**
-   * Multi-jogador
+   * Multi-jogador DONE
    * diferentes tipos de tiro
 
 ### 19/nov/2019
