@@ -30,10 +30,10 @@ O objetivo é eliminar as bolas do ecrã. Cada bola sub-divide-se em várias qua
    1. mover teclas
    1. impedir que bata nos blocos
 1. **BOLAS**
-   1. desenhar (resolução: 12, 25, 50, 100): pos_x, pos_y, vel_x, vel_y
-   1. em cada ciclo, introduzir gravidade (vel_y += 10*dt)
-   1. quando atinge o solo, impulso (if pos_y > xx: pos_y = xx; vel_y += IMPULSO*tamanho)
-   1. quando atinge bloco, muda de direcção (vel_x = -vel_x)
+   1. desenhar (resolução: 12, 25, 50, 100): pos_x, pos_y, vel_x, vel_y DONE
+   1. em cada ciclo, introduzir gravidade (vel_y += 10*dt) DONE
+   1. quando atinge o solo, impulso (if pos_y > xx: pos_y = xx; vel_y += IMPULSO*tamanho) DONE
+   1. quando atinge bloco, muda de direcção (vel_x = -vel_x) 
    1. colisões com o jogador (bounding box)
 1. **TIROS**
    1. tecla: cria tiro em tiro_x, altura_tiro, existe_tiro
