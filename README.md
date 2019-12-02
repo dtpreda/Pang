@@ -36,9 +36,9 @@ O objetivo é eliminar as bolas do ecrã. Cada bola sub-divide-se em várias qua
    1. quando atinge bloco, muda de direcção (vel_x = -vel_x)
    1. colisões com o jogador (bounding box) DONE
 1. **TIROS**
-   1. tecla: cria tiro em tiro_x, altura_tiro, existe_tiro
-   1. desenhar se existe_tiro
-   1. em cada ciclo, altura aumenta. quando atinge o tecto, existe_tiro=False
+   1. tecla: cria tiro em tiro_x, altura_tiro, existe_tiro DONE
+   1. desenhar se existe_tiro DONE
+   1. em cada ciclo, altura aumenta. quando atinge o tecto, existe_tiro=False DONE
 1. **FUTURO:**
    * Multi-jogador DONE
    * diferentes tipos de tiro
