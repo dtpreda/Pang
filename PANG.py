@@ -46,7 +46,7 @@ mapping = pygame.image.load("bitmap.png")
 pang_logo = pygame.image.load("Pang_logo.png")
 background = pygame.image.load("background.png")
 
-
+cursor = pygame.image.load("cursor.png")
 #PLAYER BEAM COLORS
 dark_green = (0,100,0)
 green = (0, 255,0)
@@ -57,6 +57,9 @@ cyan = (0,100,255)
 blue = (0,0,255)
 pink = (255,0,150)
 colors = [red, yellow, orange, pink, green, cyan, blue, dark_green]
+
+
+pygame.mouse.set_visible(False)
 
 #OBJECTS DEFINITION
 class Menu_Button:
@@ -444,6 +447,7 @@ def options_menu():
         players1_button.draw()
         players2_button.draw()
         beam_colors_button.draw()
+        WINDOW.blit(cursor, pygame.mouse.get_pos())
         pygame.display.flip()
         clock.tick(120)
 
@@ -526,6 +530,7 @@ def beam_colors_menu():
         back_button.draw()
         player1_button.draw()
         player2_button.draw()
+        WINDOW.blit(cursor, pygame.mouse.get_pos())
         pygame.display.flip()
         clock.tick(120)
 
@@ -543,7 +548,6 @@ def main_menu():
     current_level = 0
     player1.points = 0
     player2.points = 0
-    pygame.mouse.set_visible(True)
     while True:
         mouse_pos = pygame.mouse.get_pos()
         for event in pygame.event.get():
@@ -589,12 +593,13 @@ def main_menu():
         WINDOW.blit(second_but_txt, second_but_txt_rect)
         WINDOW.blit(third_but_txt, third_but_txt_rect)
         WINDOW.blit(pang_logo, (275,100))
+        WINDOW.blit(cursor, pygame.mouse.get_pos())
         pygame.display.flip()
         clock.tick(120)
         
     
 def LEVEL(level_info):
-    """This function contains all of the game's mechanics. The parameter has to be a list, containing
+    """This function contains all ofv the game's mechanics. The parameter has to be a list, containing
        nested lists with the informations about the levels, as declared above.
        The main menu can be accessed anytime while this function is running by simply pressing the ESC
        key. However, doing so will cause the game to restart, restoring lives, zeroing points and taking
