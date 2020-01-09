@@ -15,21 +15,22 @@ MIN_X = 30
 MAX_X = WINDOW_X - MIN_X + 2
 
 GROUND_LEVEL = 570
-PLAYER_HEIGHT = 36
-PLAYER_LARG = 28
+SHOT_OFFSET = 27
+PLAYER_HEIGHT = 62
+PLAYER_LARG = 55
 PLAYER_MAX_X = WINDOW_X - MIN_X - PLAYER_LARG + 6
 WINDOW_SIZE = (WINDOW_X, WINDOW_Y)
 WINDOW = pygame.display.set_mode(WINDOW_SIZE)
 clock = pygame.time.Clock()
-TIME_PER_FRAME = 50
+TIME_PER_FRAME = 90
 
 
 #SPRITES
 simple_block = pygame.image.load("Bloco1.png")
-player1_right1 = pygame.image.load("right_frame_1.png")
-player1_right2 = pygame.image.load("right_frame_2.png")
-player1_right3 = pygame.image.load("right_frame_3.png")
-player1_right4 = pygame.image.load("right_frame_4.png")
+player1_right1 = pygame.image.load("right_frame1.png")
+player1_right2 = pygame.image.load("right_frame2.png")
+player1_right3 = pygame.image.load("right_frame3.png")
+player1_right4 = pygame.image.load("right_frame4.png")
 
 player1_images_right = [player1_right1, player1_right2, player1_right3,player1_right4]
 
@@ -41,12 +42,30 @@ player1_left4 = pygame.image.load("left_frame4.png")
 player1_images_left = [player1_left1, player1_left2, player1_left3, player1_left4]
 
 player1_static = pygame.image.load("static_frame.png")
+#############################################################
+player2_right1 = pygame.image.load("right2_frame1.png")
+player2_right2 = pygame.image.load("right2_frame2.png")
+player2_right3 = pygame.image.load("right2_frame3.png")
+player2_right4 = pygame.image.load("right2_frame4.png")
+
+player2_images_right = [player2_right1, player2_right2, player2_right3,player2_right4]
+
+player2_left1= pygame.image.load("left2_frame1.png")
+player2_left2 = pygame.image.load("left2_frame2.png")
+player2_left3 = pygame.image.load("left2_frame3.png")
+player2_left4 = pygame.image.load("left2_frame4.png")
+
+player2_images_left = [player2_left1, player2_left2, player2_left3, player2_left4]
+
+player2_static = pygame.image.load("static2_frame.png")
 
 mapping = pygame.image.load("bitmap.png")
 pang_logo = pygame.image.load("Pang_logo.png")
 background = pygame.image.load("background.png")
 
 cursor = pygame.image.load("cursor.png")
+
+music = pygame.mixer.music.load("awesomeness.wav")
 #PLAYER BEAM COLORS
 dark_green = (0,100,0)
 green = (0, 255,0)
@@ -57,7 +76,6 @@ cyan = (0,100,255)
 blue = (0,0,255)
 pink = (255,0,150)
 colors = [red, yellow, orange, pink, green, cyan, blue, dark_green]
-
 
 pygame.mouse.set_visible(False)
 
@@ -126,14 +144,11 @@ class Shot:
 
     
 class Level_Matrix:
-    def __init__(self, window, blocks1, blocks2):
+    def __init__(self, window, blocks1):
         self.window = window
         self.blocks1 = blocks1
-        self.blocks2 = blocks2
     def draw(self):
         for block in self.blocks1:
-            self.window.blit(simple_block, block)
-        for block in self.blocks2:
             self.window.blit(simple_block, block)
 
 
@@ -163,12 +178,6 @@ class Player:
             self.window.blit(self.images_left[current_frame], self.pos)
         elif self.status == "static":
             self.window.blit(self.image_static, self.pos)
-        # elif self.status == "static+":
-        #     self.window.blit(self.image_static, self.pos)
-        #     if self.speed > 0:
-        #         self.status = "moving right"
-        #     elif self.speed < 0:
-        #         self.status = "moving left"
     def forward(self):
         self.status = "moving right"
         self.speed = 2
@@ -185,7 +194,7 @@ class Player:
 #FUNCTIONS
 def check_player_collisions(ball, players):
     for player in players:
-        if (ball.pos[0] + ball.radius >= player.pos[0] and ball.pos[0] + ball.radius <= player.pos[0] + PLAYER_LARG and ball.pos[1] + ball.radius >= player.pos[1]) or (ball.pos[0] - ball.radius >= player.pos[0] and ball.pos[0] - ball.radius <= player.pos[0] + PLAYER_LARG and ball.pos[1] + ball.radius >= player.pos[1]):
+        if (ball.pos[0] + ball.radius >= player.pos[0] + 10 and ball.pos[0] + ball.radius <= player.pos[0] + PLAYER_LARG and ball.pos[1] + ball.radius >= player.pos[1]) or (ball.pos[0] - ball.radius >= player.pos[0] and ball.pos[0] - ball.radius <= player.pos[0] + PLAYER_LARG - 10 and ball.pos[1] + ball.radius >= player.pos[1]):
             return True
     return False
 
@@ -237,35 +246,40 @@ block_as = Block(WINDOW, simple_block, (400,300))
 lvl1_ball1 = Ball(WINDOW, (200, 0, 0), [200, 200], 25, [1,1])
 lvl1_balls = [lvl1_ball1]
 lvl1_blocks = (())
-lvl1 = Level_Matrix(WINDOW, lvl1_blocks, ())
+lvl1 = Level_Matrix(WINDOW, lvl1_blocks)
 lvl1_info = [lvl1_balls, lvl1_blocks, lvl1]
 
 lvl2_ball1 = Ball(WINDOW, (0, 255, 0), [200, 200], 25, [1,1])
 lvl2_ball2 = Ball(WINDOW, (0, 255, 0), [520, 300], 25, [1,1])
 lvl2_balls = [lvl2_ball1, lvl2_ball2]
 lvl2_blocks = ((200,400), (600,400))
-lvl2 = Level_Matrix(WINDOW, lvl2_blocks, ())
+lvl2 = Level_Matrix(WINDOW, lvl2_blocks)
 lvl2_info = [lvl2_balls, lvl2_blocks, lvl2]
 
 lvl3_ball1 = Ball(WINDOW, (0, 150, 255), [400, 200], 25, [1,1])
 lvl3_ball2 = Ball(WINDOW, (0, 150, 255), [400, 300], 25, [1,1])
 lvl3_balls = [lvl3_ball1,lvl3_ball2]
 lvl3_blocks = ((375,250), (265,185), (490, 185))
-lvl3 = Level_Matrix(WINDOW, lvl3_blocks, ())
+lvl3 = Level_Matrix(WINDOW, lvl3_blocks)
 lvl3_info = [lvl3_balls, lvl3_blocks, lvl3]
 
 lvl4_ball1 = Ball(WINDOW, pink, [300,200], 30, [-1,1])
 lvl4_balls = [lvl4_ball1]
 lvl4_blocks = ((400, 370), (200, 450), (550, 400))
-lvl4 = Level_Matrix(WINDOW, lvl4_blocks, ())
+lvl4 = Level_Matrix(WINDOW, lvl4_blocks)
 lvl4_info = [lvl4_balls, lvl4_blocks, lvl4]
 
-"""
-pelo menos 5 níveis
-"""
+lvl5_ball1 = Ball(WINDOW, dark_green, [200,200], 25, [-1, 1])
+lvl5_ball2 = Ball(WINDOW, dark_green, [300,200], 25, [1, 1])
+lvl5_ball3 = Ball(WINDOW, dark_green, [500,200], 25, [-1, 1])
+lvl5_ball4 = Ball(WINDOW, dark_green, [600,200], 25, [1, 1])
+lvl5_balls = [lvl5_ball1,lvl5_ball2,lvl5_ball3,lvl5_ball4]
+lvl5_blocks = ((400, 400),)
+lvl5 = Level_Matrix(WINDOW, lvl5_blocks)
+lvl5_info = [lvl5_balls, lvl5_blocks, lvl5]
 
 #List with all the different levels of the game
-levels = [lvl1_info, lvl2_info, lvl3_info, lvl4_info]
+levels = [lvl1_info, lvl2_info, lvl3_info, lvl4_info, lvl5_info]
 
 
 #Defining players
@@ -276,7 +290,7 @@ player2_points = 0
 player1_shot = Shot(WINDOW, player1_color, [0,GROUND_LEVEL], [0,GROUND_LEVEL], False)
 player1 = Player(WINDOW, player1_images_right, player1_images_left, player1_static, [400,570], 0, [K_LEFT, K_RIGHT, K_DOWN], player1_shot, player1_points, "static")
 player2_shot = Shot(WINDOW, player2_color, [0,GROUND_LEVEL], [0,GROUND_LEVEL], False)
-player2 = Player(WINDOW, player1_images_right, player1_images_left, player1_static, [400,530], 0, [K_a, K_d, K_s], player2_shot, player2_points, "static")
+player2 = Player(WINDOW, player2_images_right, player2_images_left, player2_static, [400,570], 0, [K_a, K_d, K_s], player2_shot, player2_points, "static")
 
 #Players that will participate in the game (set to only player 1 by default)
 players = [player1]
@@ -498,7 +512,7 @@ def beam_colors_menu():
                     p2 += 1
                     player2_color = colors[p2%len(colors)]
                     player2_shot = Shot(WINDOW, player2_color, [0,GROUND_LEVEL], [0,GROUND_LEVEL], False)
-                    player2 = Player(WINDOW, player1_images_right, player1_images_left, player1_static, [400,570], 0, [K_a, K_d, K_s], player2_shot, player2_points, "static")
+                    player2 = Player(WINDOW, player2_images_right, player2_images_left, player2_static, [400,570], 0, [K_a, K_d, K_s], player2_shot, player2_points, "static")
                     if len(players) == 1:
                         players = [player1]
                     else:
@@ -507,7 +521,7 @@ def beam_colors_menu():
                     p2 -= 1
                     player2_color = colors[p2%len(colors)]
                     player2_shot = Shot(WINDOW, player2_color, [0,GROUND_LEVEL], [0,GROUND_LEVEL], False)
-                    player2 = Player(WINDOW, player1_images_right, player1_images_left, player1_static, [400,570], 0, [K_a, K_d, K_s], player2_shot, player2_points, "static")
+                    player2 = Player(WINDOW, player2_images_right, player2_images_left, player2_static, [400,570], 0, [K_a, K_d, K_s], player2_shot, player2_points, "static")
                     if len(players) == 1:
                         players = [player1]
                     else:
@@ -544,6 +558,9 @@ def main_menu():
     """
     global lives
     global current_level
+    pygame.mixer.music.play(1)
+    pygame.mixer.music.stop()
+    pygame.mixer.music.play(1000)
     lives = 5
     current_level = 0
     player1.points = 0
@@ -599,7 +616,7 @@ def main_menu():
         
     
 def LEVEL(level_info):
-    """This function contains all ofv the game's mechanics. The parameter has to be a list, containing
+    """This function contains all of the game's mechanics. The parameter has to be a list, containing
        nested lists with the informations about the levels, as declared above.
        The main menu can be accessed anytime while this function is running by simply pressing the ESC
        key. However, doing so will cause the game to restart, restoring lives, zeroing points and taking
@@ -616,12 +633,12 @@ def LEVEL(level_info):
     global levels
     
     #Setting up the players for the game
-    player1.pos = [200, GROUND_LEVEL - PLAYER_HEIGHT + 3]
-    player2.pos = [400, GROUND_LEVEL - PLAYER_HEIGHT]
+    player1.pos = [200, GROUND_LEVEL - PLAYER_HEIGHT - 3]
+    player2.pos = [560, GROUND_LEVEL - PLAYER_HEIGHT - 2]
     player1.shot.shot_existence = False
     player2.shot.shot_existence = False
-    player1.shot.end_pos[1] = GROUND_LEVEL + 25
-    player2.shot.end_pos[1] = GROUND_LEVEL + 25
+    player1.shot.end_pos[1] = GROUND_LEVEL 
+    player2.shot.end_pos[1] = GROUND_LEVEL
     
     #Making a copy of the level so, in case of defeat, the restart point will always be the same
     lvl_info = level_info[:]
@@ -664,8 +681,8 @@ def LEVEL(level_info):
                     if player.shot.shot_existence == False:
                         player.stop()
                         player.shot.shot_existence = True
-                        player.shot.start_pos[0] = player.pos[0] + 15
-                        player.shot.end_pos[0] = player.pos[0] + 15
+                        player.shot.start_pos[0] = player.pos[0] + SHOT_OFFSET
+                        player.shot.end_pos[0] = player.pos[0] + SHOT_OFFSET
                 if event.type == pygame.KEYUP and event.key == player.buttons[2]:
                     if player.last_dir == 'right':
                         player.forward()
@@ -673,26 +690,25 @@ def LEVEL(level_info):
                         player.backwards()
         for player in players:
             keys = pygame.key.get_pressed()
-            for player in players:
-                if keys[player.buttons[0]] and keys[player.buttons[1]]:
-                    player.stop()
-                elif keys[player.buttons[0]]:
-                    player.backwards()
-                elif keys[player.buttons[1]]:
-                    player.forward()
-                else:
-                    player.stop()
+            if keys[player.buttons[0]] and keys[player.buttons[1]]:
+                player.stop()
+            elif keys[player.buttons[0]]:
+                player.backwards()
+            elif keys[player.buttons[1]]:
+                player.forward()
+            else:
+                player.stop()
             if player.shot.end_pos[1] <= 25 or check_shot_block_collisions(player, lvl_info[1]):
                 player.shot.shot_existence = False
                 player.shot.end_pos[1] = GROUND_LEVEL
             if MIN_X < player.pos[0] < PLAYER_MAX_X:
                 player.pos[0] += player.speed
-            elif player.pos[0] == PLAYER_MAX_X:
+            elif player.pos[0] >= PLAYER_MAX_X:
                 player.pos[0] -= 2
-                player.stop()
-            elif player.pos[0] == MIN_X:
+                player.speed = 0
+            elif player.pos[0] <= MIN_X:
                 player.pos[0] += 2
-                player.stop()
+                player.speed = 0
         for ball in lvl_info[0]:
             if check_player_collisions(ball, players):
                 lost = True
