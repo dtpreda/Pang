@@ -42,5 +42,15 @@ O objetivo é eliminar as bolas do ecrã. Cada bola sub-divide-se em várias qua
 1. **FUTURO:**
    * Multi-jogador DONE
    * diferentes tipos de tiro
-
+#### Notas:
+1. A matriz não foi feita da forma originalmente planeada.
+1. O jogador ficou com uma resolução diferente, devido ao tamanho das imagens.
+1. **BÓNUS** Foram feitas animações para o jogador e feitas algumas diferenças em comparação aos comandos originais do jogo.
+1. A gravidade das bolas não é propriamente real de forma a subirem sempre o mesmo, havendo um impulso quando atingem o chão.
+1. Como planeado, as colisão são detetadas através de bounding boxes.
+1. Os diferentes tipos de tiro não foram implementados.
+1. Apesar de ser opcional, foi criado um modo multijogador.
+1. Comandos:
+   1. Player1 - Arrow_Left: esquerda; Arrow_Right: direita; Arrow_Down: tiro;
+   1. Player2 - A: esquerda; D: direita; S: tiro.
 ### 19/nov/2019
