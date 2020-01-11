@@ -50,7 +50,11 @@ O objetivo é eliminar as bolas do ecrã. Cada bola sub-divide-se em várias qua
 1. Como planeado, as colisão são detetadas através de bounding boxes.
 1. Os diferentes tipos de tiro não foram implementados.
 1. Apesar de ser opcional, foi criado um modo multijogador.
+1. A maior parte do jogo foi criado com recurso a programação orientada a objetos de forma a simplificar o código.
 1. Comandos:
    1. Player1 - Arrow_Left: esquerda; Arrow_Right: direita; Arrow_Down: tiro;
    1. Player2 - A: esquerda; D: direita; S: tiro.
+**APÓS INSPEÇÃO DO PROFESSOR**
+1. Foi corrigido um erro em que o jogo crashava ao mudar de menu ou ao sair devido ao uso de pygame.quit() a meio do código.
+1. 
 ### 19/nov/2019
