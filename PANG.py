@@ -282,8 +282,8 @@ levels = [lvl1_info, lvl2_info, lvl3_info, lvl4_info, lvl5_info]
 
 
 #Defining players
-player1_color = (255,0,0)
-player2_color = (255,0,0)
+player1_color = red
+player2_color = cyan
 player1_points = 0
 player2_points = 0
 player1_shot = Shot(WINDOW, player1_color, [0,GROUND_LEVEL], [0,GROUND_LEVEL], False)
