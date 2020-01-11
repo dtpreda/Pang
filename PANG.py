@@ -321,7 +321,7 @@ def won_game_transition():
         total_score = Menu_Button(WINDOW, "Total score: " + str(final_points), 30, (255,255,255), (0,0,0), (0,0,0), (400, 300), (1000,1000,100,100))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == K_ESCAPE and check:
-                main_menu()
+                return main_menu()
         first_message = Menu_Button(WINDOW, "You have won the game with " + str(lives) + " remaining lives.", 30, (255,255,255), (0,0,0), (0,0,0), (400, 200), (1000,1000,100,100))
         if extra_points < 1000*lives and not second_check:
             extra_points += 10
@@ -366,7 +366,7 @@ def lost_game_transition():
         total_score = Menu_Button(WINDOW, "Total score: " + str(final_points), 30, (255,255,255), (0,0,0), (0,0,0), (400, 300), (1000,1000,100,100))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == K_ESCAPE and check:
-                main_menu()
+                return main_menu()
         if final_points < player1.points + player2.points:
             final_points += 10
         else:
@@ -403,7 +403,7 @@ def level_transition():
         current_score = Menu_Button(WINDOW, "Current score: " + str(current_points), 30, (255,255,255), (0,0,0), (0,0,0), (400, 300), (1000,1000,100,100))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == K_UP and check:
-                LEVEL(levels[current_level])
+                return LEVEL(levels[current_level])
         if current_points < player1.points + player2.points:
             current_points += 10
         else:
@@ -445,13 +445,13 @@ def options_menu():
             mouse_pos = pygame.mouse.get_pos()
             if mouse_buttons[0] == 1:
                 if 200 <= mouse_pos[0] <= 600 and 500 <= mouse_pos[1] <= 600:
-                    main_menu()
+                    return main_menu()
                 if 25 <= mouse_pos[0] <= 375 and 200 <= mouse_pos[1] <= 300:
                     players = [player1]
                 if 425 <= mouse_pos[0] <= 775 and 200 <= mouse_pos[1] <= 300:
                     players = [player1,player2]
                 if 125 <= mouse_pos[0] <= 675 and 350 <= mouse_pos[1] <= 450:
-                    beam_colors_menu()
+                    return beam_colors_menu()
         players1_button = Menu_Button(WINDOW, "1 PLAYER", 62, (0,0,0), players_1_col, (150,150,0), (200,250), (25,200,350,100))
         players2_button = Menu_Button(WINDOW, "2 PLAYERS", 62, (0,0,0), players_2_col, (150,150,0), (600,250), (425,200,350,100))
         
@@ -488,7 +488,7 @@ def beam_colors_menu():
             mouse_buttons = pygame.mouse.get_pressed()
             if mouse_buttons[0] == 1:
                 if 200 <= mouse_pos[0] <= 600 and 500 <= mouse_pos[1] <= 600:
-                    options_menu()
+                    return options_menu()
                 if 680 <= mouse_pos[0] <= 730 and 225 <= mouse_pos[1] <= 275:
                     p1 += 1
                     player1_color = colors[p1%len(colors)]
@@ -564,17 +564,21 @@ def main_menu():
     current_level = 0
     player1.points = 0
     player2.points = 0
+    check = False
     while True:
         mouse_pos = pygame.mouse.get_pos()
         for event in pygame.event.get():
             mouse_buttons = pygame.mouse.get_pressed()
             if mouse_buttons[0] == 1:
                 if 200 <= mouse_pos[0] <= 600 and 250 <= mouse_pos[1] <= 350:
-                    LEVEL(levels[current_level])
+                    return LEVEL(levels[current_level])
                 elif 200 <= mouse_pos[0] <= 600 and 375 <= mouse_pos[1] <= 475:
-                    options_menu()
+                    return options_menu()
                 elif 200 <= mouse_pos[0] <= 600 and 500 <= mouse_pos[1] <= 600:
-                    return pygame.quit()
+                    check = True
+                    break
+        if check:
+            break
         
         WINDOW.fill((0,0,0))
         font = pygame.font.Font('freesansbold.ttf', 64)
@@ -661,20 +665,20 @@ def LEVEL(level_info):
         points = Menu_Button(WINDOW , "POINTS : " + str(player1.points + player2.points), 50, (255,255,255), (0,0,0), (0,0,0), (600,625), (1000,1000,100,100))
         if len(lvl_info[0]) == 0:
             if current_level  + 1 == len(levels):
-                won_game_transition()
+                return won_game_transition()
             else:
                 current_level += 1
-                level_transition()
+                return level_transition()
         if lost or lives == 0:
             if lives > 0:
                 lives -= 1
                 time.sleep(1)
-                LEVEL(level_info)
+                return LEVEL(level_info)
             else:
-                lost_game_transition()
+                return lost_game_transition()
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == K_ESCAPE:
-                main_menu()
+                return main_menu()
             for player in players:
                 if event.type == pygame.KEYDOWN and event.key == player.buttons[2]:
                     if player.shot.shot_existence == False:
@@ -755,8 +759,9 @@ def LEVEL(level_info):
         if count == 0:
             time.sleep(1)
             count += 1
-        clock.tick(120)
+        clock.tick(90)
     
 
 main_menu()
 
+pygame.quit()
