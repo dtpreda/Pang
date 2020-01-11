@@ -56,5 +56,6 @@ O objetivo é eliminar as bolas do ecrã. Cada bola sub-divide-se em várias qua
    1. Player2 - A: esquerda; D: direita; S: tiro.
 **APÓS INSPEÇÃO DO PROFESSOR**
 1. Foi corrigido um erro em que o jogo crashava ao mudar de menu ou ao sair devido ao uso de pygame.quit() a meio do código.
-1. 
+1. A cor predefinida do tiro do segundo jogador foi alterada de forma aos dois jogadores não começarem com cores iguais (evitar confusão).
+1. O jogo foi desacelerado porque corria demasiado depressa, tornando-se difícil jogar.
 ### 19/nov/2019
